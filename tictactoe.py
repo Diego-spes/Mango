@@ -13,19 +13,22 @@ from turtle import *
 from freegames import line
 from threading import Thread
 from playsound import playsound
-
+import time
 
 
 # Función para abrir archivo de música
 def music_func():
-    playsound('Back.mp3')
+    playsound('Beep.mp3')
 
 
 # Definir función que llama audio
 music = Thread(target=music_func)
 music.daemon = True
+
+music2 = Thread(target=music_func)
+music2.daemon = True
 # Iniciar musica
-music.star()
+music.start()
 
 
 
@@ -64,6 +67,15 @@ def tap(x, y):
     draw = players[player]
     draw(x, y)
     update()
+    tiempo=1
+    while tiempo:
+        m, s = divmod(tiempo, 60)
+        min_sec_format = '{:02d}:{:02d}'.format(m, s)
+        print(min_sec_format, end='/r')
+        time.sleep(1)
+        tiempo -= 1
+    music_func()
+
     state['player'] = not player
     
 
